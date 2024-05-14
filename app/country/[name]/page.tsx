@@ -36,29 +36,34 @@ export default async function CountryDetail({
       </Link>
       <article className="flex justify-between min-w-full p-10 bg-white rounded-xl">
         <section>
+          {country.capital && ( //Tratamento de erro: Essa informação será exibida somente se existir valor para essa propriedade
+            <h2 className="text-xl text-gray-800 mt-3">
+              <b>🏙️ Capital:</b> {country.capital}
+            </h2>
+          )}
           <h2 className="text-xl text-gray-800 mt-3">
-            <b>🏙️ Capital:</b> {country.capital}
-          </h2>
-          <h2 className="text-xl text-gray-800 mt-3">
-            <b>🗺️ Continente:</b> {country.region} - {country.subregion}
+            <b>🗺️ Continente:</b> {country.region}
+            {country.subregion && `- ${country.subregion}`}
           </h2>
           <h2 className="text-xl text-gray-800 mt-3">
             <b>👨🏻‍👩🏼‍👧🏻‍👦🏼 População:</b> ~
             {formatter.format(country.population)}
           </h2>
-          <h2 className="text-xl text-gray-800 mt-3">
-            <b>🗣️ Idiomas:</b>
-            <br />
-            {Object.values(country.languages).map((language) => (
-              <span
-                key={language}
-                className="inline-block px-2 bg-indigo-700 mr-2 text-white text-sm rounded-full"
-              >
-                {language}
-              </span>
-            ))}
-            {/*Pegar os valores que estão dentro das propriedades do objeto languages e criar um span para cada idioma*/}
-          </h2>
+          {country.languages && ( //Tratamento de erro: Essa informação será exibida somente se existir valor para essa propriedade
+            <h2 className="text-xl text-gray-800 mt-3">
+              <b>🗣️ Idiomas:</b>
+              <br />
+              {Object.values(country.languages).map((language) => (
+                <span
+                  key={language}
+                  className="inline-block px-2 bg-indigo-700 mr-2 text-white text-sm rounded-full"
+                >
+                  {language}
+                </span>
+              ))}
+              {/*Pegar os valores que estão dentro das propriedades do objeto languages e criar um span para cada idioma*/}
+            </h2>
+          )}
         </section>
 
         <div className="relative h-auto w-96 shadow-md">

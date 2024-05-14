@@ -21,7 +21,8 @@ export type Country = {
   region: string;
   subregion: string;
   population: number;
-  languages: {
+  languages?: {
+    //Propriedades de languages é opcional
     [key: string]: string;
   };
 };
