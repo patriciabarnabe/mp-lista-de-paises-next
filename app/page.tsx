@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type Country = {
   name: {
@@ -28,23 +29,25 @@ export default async function Home() {
   return (
     <section className="container grid grid-cols-5 w-full gap-2 mt-16">
       {countries.map((country) => (
-        <article
+        <Link
+          href={`/country/${country.name.common}`}
           key={country.name.common}
-          className="h-64 min-w-full p-2 bg-white border-2 rounded-xl hover:border-indigo-200 transition-all hover:shadow-xl hover:cursor-pointer flex flex-col justify-around"
         >
-          <div className="relative w-full h-40 p-2 overflow-hidden rounded-xl">
-            <Image
-              src={country.flags.svg}
-              alt={country.flags.alt}
-              fill
-              className="object-cover"
-            />
-          </div>
+          <article className="h-64 min-w-full p-2 bg-white border-2 rounded-xl hover:border-indigo-200 transition-all hover:shadow-xl hover:cursor-pointer flex flex-col justify-around">
+            <div className="relative w-full h-40 p-2 overflow-hidden rounded-xl">
+              <Image
+                src={country.flags.svg}
+                alt={country.flags.alt}
+                fill
+                className="object-cover"
+              />
+            </div>
 
-          <h1 className="text-center font-bold text-xl">
-            {country.translations.por.common}
-          </h1>
-        </article>
+            <h1 className="text-center font-bold text-xl">
+              {country.translations.por.common}
+            </h1>
+          </article>
+        </Link>
       ))}
     </section>
   );
