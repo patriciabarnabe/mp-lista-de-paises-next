@@ -1,6 +1,19 @@
+import Image from "next/image";
+
 type Country = {
   name: {
     common: string;
+  };
+
+  translations: {
+    por: {
+      common: string;
+    };
+  };
+
+  flags: {
+    svg: string;
+    alt: string;
   };
 };
 
@@ -13,9 +26,25 @@ async function getCountries(): Promise<Country[]> {
 export default async function Home() {
   const countries = await getCountries(); //Um console nesse ponto não irá gerar retorno no dev tools, apenas no terminal onde o Next está rodando, pois na verdade esses dados estão no servidor já que estamos utilizando o Server Components do React -> A página é construída no servidor e é enviada por streaming (aos poucos), mas o HTML já chegará pronto no frontend, ou seja, não é gerado/criado pelo cliente
   return (
-    <section className="container flex w-full">
+    <section className="container grid grid-cols-5 w-full gap-2 mt-16">
       {countries.map((country) => (
-        <h1 key={country.name.common}>{country.name.common}</h1>
+        <article
+          key={country.name.common}
+          className="h-64 min-w-full p-2 bg-white border-2 rounded-xl hover:border-indigo-200 transition-all hover:shadow-xl hover:cursor-pointer flex flex-col justify-around"
+        >
+          <div className="relative w-full h-40 p-2 overflow-hidden rounded-xl">
+            <Image
+              src={country.flags.svg}
+              alt={country.flags.alt}
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <h1 className="text-center font-bold text-xl">
+            {country.translations.por.common}
+          </h1>
+        </article>
       ))}
     </section>
   );
