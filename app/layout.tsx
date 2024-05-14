@@ -6,6 +6,7 @@ import Image from "next/image";
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  //Indexação e SEO da página
   title: "Países do mundo",
   description: "Uma lista de países criada com Next 13",
 };
@@ -30,7 +31,8 @@ export default function RootLayout({
               <h1 className="font-bold text-2xl">Países do mundo</h1>
             </section>
           </nav>
-          {children}
+          {children}{" "}
+          {/*Páginas dos arquivos pages que estão na mesma pasta ou em pastas filhas*/}
         </main>
       </body>
     </html>
