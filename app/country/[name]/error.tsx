@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-//Error boundary: limite/tratamento de erros que irá capturar os erros que ocorrerem ao acessar essa rota ou rotas subsequentes
+//Error boundary: limite/tratamento de erros que irá capturar os erros que ocorrerem ao acessar essa rota e/ou todas as rotas subsequentes
 
 //OBS: Os componentes de erro rodam apenas no lado do cliente (Client Side) e não são renderizados no lado do servidor (Server Side Rendering) - como ocorre nas outras páginas que buscam conteúdos nas APIs. Por isso, eles precisam ter uma diretiva no topo do arquivo chamada use client para avisar que esse componente deve ser gerado no lado do cliente.
 

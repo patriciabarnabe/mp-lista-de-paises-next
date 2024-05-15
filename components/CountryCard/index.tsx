@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function CountryCard({
-  //Definição e tipagem das props do compopnente
+  //Definição e tipagem das props do componente
   name,
   ptName,
   flag,
