@@ -101,12 +101,12 @@ export default async function CountryDetail({
             </h2>
           )}
         </section>
-        <div className="relative h-48 my-2 md:h-auto w-96 shadow-md rounded-xl md:order-last order-first mx-auto md:mx-0">
+        <div className="relative h-48 my-2 md:h-auto w-96 shadow-md md:order-last order-first rounded-xl">
           <Image
             src={country.flags.svg}
             alt={country.flags.alt}
             fill
-            className="object-cover rounded-xl w-full h-full"
+            className="object-cover rounded-xl"
           />
         </div>
       </article>
