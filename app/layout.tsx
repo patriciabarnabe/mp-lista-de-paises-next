@@ -7,7 +7,7 @@ const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   //Indexação e SEO da página
-  title: "Países do mundo",
+  title: "Países do Mundo",
   description: "Uma lista de países criada com Next 13",
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
                 width={48}
                 height={48}
               />
-              <h1 className="font-bold text-2xl">Países do mundo</h1>
+              <h1 className="font-bold text-2xl">Países do Mundo</h1>
             </section>
           </nav>
           {children}{" "}

@@ -11,12 +11,49 @@ async function getCountryByName(name: string): Promise<Country> {
   return (await response.json())[0]; //API retorna o conteúdo do país dentro de um array. Precisamos acessar a posição zero do array, então podemos inserir um outro await para aguardar enquanto fazemos esse acesso dentro do array.
 }
 
+//Outra maneira de fazer a busca dos detalhes dos países utilizando o cache do Next 13
+// async function getCountryByNameWithCache(name: string): Promise<Country> {
+//   const response = await fetch("https://restcountries.com/v3.1/all"); // Essa busca já foi feita na outra página, então o Next criará cache, por padrão, para os dados dessa requisição. Portanto, podemos aproveitar esses dados cacheados e apenas filtrar/procurar o país desejado
+//   const countries: Country[] = await response.json();
+
+//   return countries.find((country: Country) => country.name.common === name)!; // Exclamação significa que essa informação (no caso, esse país) será retornado com certeza, ou seja, nunca será nulo ou undefined. É chamado de operador de asserção de não nulo (non-null)
+// }
+
+//Para obter o nome e a bandeira de cada país que faz fronteira, precisamos filtrá-los a partir da lista de países
+async function getCountryBordersByName(name: string) {
+  const response = await fetch("https://restcountries.com/v3.1/all");
+
+  const countries: Country[] = await response.json(); //Todos os países
+
+  const country = countries.find(
+    //País detalhado
+    (country: Country) => country.name.common === name
+  )!;
+
+  return country.borders?.map((border) => {
+    const countryBorder = countries.find((country) => country.cca3 === border)!;
+
+    return {
+      name: countryBorder.name.common,
+      ptName: countryBorder.translations.por.common,
+      flag: countryBorder.flags.svg,
+      flagAlt: countryBorder.flags.alt,
+    };
+  });
+}
+
 export default async function CountryDetail({
   params: { name }, //Está relacionado ao [name] que é o nome da pasta onde esse arquivo está (o parâmetro deve ter o mesmo nome da pasta)
 }: {
   params: { name: string }; //Criação de tipo para o parâmetro que vem do path da rota da URL
 }) {
   const country = await getCountryByName(name);
+
+  // const country = await getCountryByNameWithCache(decodeURI(name));
+
+  const countryBorders = await getCountryBordersByName(decodeURI(name));
+
+  console.log(countryBorders);
 
   const formatter = Intl.NumberFormat("en", { notation: "compact" }); //API de internacionalização do JS
 
@@ -43,7 +80,7 @@ export default async function CountryDetail({
           )}
           <h2 className="text-xl text-gray-800 mt-3">
             <b>🗺️ Continente:</b> {country.region}
-            {country.subregion && `- ${country.subregion}`}
+            {country.subregion && ` - ${country.subregion}`}
           </h2>
           <h2 className="text-xl text-gray-800 mt-3">
             <b>👨🏻‍👩🏼‍👧🏻‍👦🏼 População:</b> ~
@@ -66,7 +103,7 @@ export default async function CountryDetail({
           )}
         </section>
 
-        <div className="relative h-auto w-96 shadow-md">
+        <div className="relative h-auto w-96 shadow-md rounded-xl">
           <Image
             src={country.flags.svg}
             alt={country.flags.alt}
@@ -75,6 +112,14 @@ export default async function CountryDetail({
           />
         </div>
       </article>
+      <section>
+        <h3 className="mt-12 text-2xl font-semibold text-gray-800">
+          Países que fazem fronteira:
+        </h3>
+        <div className="grid grid-cols-5 w-full">
+          {country.borders?.map((border) => <div key={border}>{border}</div>)}
+        </div>
+      </section>
     </section>
   );
 }

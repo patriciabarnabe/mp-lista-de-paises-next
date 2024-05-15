@@ -25,6 +25,9 @@ export type Country = {
     //Propriedades de languages é opcional
     [key: string]: string;
   };
+
+  borders?: string[];
+  cca3: string;
 };
 
 async function getCountries(): Promise<Country[]> {
