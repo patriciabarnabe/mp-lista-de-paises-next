@@ -38,7 +38,7 @@ async function getCountries(): Promise<Country[]> {
 export default async function Home() {
   const countries = await getCountries(); //Um console nesse ponto não irá gerar retorno no dev tools, apenas no terminal onde o Next está rodando, pois na verdade esses dados estão no servidor já que estamos utilizando o Server Components do React -> A página é construída no servidor e é enviada por streaming (aos poucos), mas o HTML já chegará pronto no frontend, ou seja, não é gerado/criado pelo cliente
   return (
-    <section className="container grid grid-cols-5 w-full gap-2 mt-16">
+    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full gap-2 mt-16">
       {countries.map((country) => (
         <CountryCard
           key={country.name.common}

@@ -4,7 +4,7 @@ export default function Loading() {
   const arr = Array.from({ length: 20 });
 
   return (
-    <section className="grid grid-cols-5 container mt-12 gap-3">
+    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full gap-2 mt-16">
       {arr.map((_, index) => (
         <article
           key={index}
