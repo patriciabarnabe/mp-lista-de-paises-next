@@ -1,4 +1,5 @@
 import type { Country } from "@/app/page";
+import CountryCard from "@/components/CountryCard";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,8 +53,6 @@ export default async function CountryDetail({
   // const country = await getCountryByNameWithCache(decodeURI(name));
 
   const countryBorders = await getCountryBordersByName(decodeURI(name));
-
-  console.log(countryBorders);
 
   const formatter = Intl.NumberFormat("en", { notation: "compact" }); //API de internacionalização do JS
 
@@ -116,8 +115,10 @@ export default async function CountryDetail({
         <h3 className="mt-12 text-2xl font-semibold text-gray-800">
           Países que fazem fronteira:
         </h3>
-        <div className="grid grid-cols-5 w-full">
-          {country.borders?.map((border) => <div key={border}>{border}</div>)}
+        <div className="grid grid-cols-5 gap-3 w-full my-3">
+          {countryBorders?.map((border) => (
+            <CountryCard key={border.name} {...border} />
+          ))}
         </div>
       </section>
     </section>
