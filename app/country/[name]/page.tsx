@@ -82,8 +82,7 @@ export default async function CountryDetail({
             {country.subregion && ` - ${country.subregion}`}
           </h2>
           <h2 className="text-xl text-gray-800 mt-3">
-            <b>👨🏻‍👩🏼‍👧🏻‍👦🏼 População:</b> ~
-            {formatter.format(country.population)}
+            <b>👩🏻‍🦰 População:</b> ~{formatter.format(country.population)}
           </h2>
           {country.languages && ( //Tratamento de erro: Essa informação será exibida somente se existir valor para essa propriedade
             <h2 className="text-xl text-gray-800 mt-3">
